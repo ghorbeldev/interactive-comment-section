@@ -1,0 +1,45 @@
+@use './abstracts/' as *;
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+body {
+	font-size: 16px;
+	font-family: 'Rubik', sans-serif;
+	background-color: $light-gray-700;
+	overflow-x: hidden;
+}
+.comment-box {
+	width: 100%;
+}
+.replies__container {
+	position: relative;
+	width: 100%;
+	margin-left: auto;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	padding-left: 5rem;
+	@include mobile {
+		padding-left: 2rem;
+	}
+	> * ~ * {
+		margin-top: 1rem;
+	}
+	&::before {
+		content: '';
+		position: absolute;
+		height: 100%;
+		border-radius: 3px;
+		width: 3px;
+		background-color: $light-gray-500;
+		left: 2.5rem;
+		transform: translateX(-50%);
+		top: 0;
+		@include mobile {
+			left: 0;
+		}
+	}
+}

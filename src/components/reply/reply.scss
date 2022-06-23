@@ -1,0 +1,51 @@
+@use '../../scss/abstracts/' as *;
+
+.reply-box {
+	@include flex(flex-start, space-between);
+	width: 100%;
+	max-width: 100%;
+	background-color: $white;
+	border-radius: 0.5rem;
+	padding: 1rem;
+	margin-top: 1rem;
+	transition: all 0.2s ease-in-out;
+	max-height: 500;
+	opacity: 1;
+	visibility: visible;
+	gap: 1rem;
+	&.close {
+		margin-top: 0;
+		padding: 0;
+		opacity: 0;
+		visibility: hidden;
+		max-height: 0;
+	}
+	img {
+		width: 33px;
+	}
+	textarea {
+		width: 75%;
+		min-height: 80px;
+		max-height: 100px;
+		border-radius: 10px;
+		border: 1px solid $light-gray-500;
+		outline: none;
+		color: $grayish-blue;
+		padding: 0.5rem;
+		font-size: 0.9rem;
+		resize: none;
+		&:focus {
+			border-color: $blue;
+		}
+	}
+	button {
+		color: $white;
+		cursor: pointer;
+		background-color: $blue;
+		font-size: 1.1rem;
+		padding: 0.75rem 1.34rem;
+		border-radius: 10px;
+		border: none;
+		outline: none;
+	}
+}

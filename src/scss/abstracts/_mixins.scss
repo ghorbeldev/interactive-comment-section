@@ -1,0 +1,12 @@
+@use './variables' as *;
+@mixin flex($align: center, $justify: center) {
+	display: flex;
+	justify-content: $justify;
+	align-items: $align;
+}
+
+@mixin mobile {
+	@media (max-width: $mobile) {
+		@content;
+	}
+}
