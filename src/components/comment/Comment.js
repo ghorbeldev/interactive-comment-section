@@ -16,6 +16,8 @@ const Comment = ({
 	createdAt,
 	parentID,
 	isReply,
+	storedValue,
+	setStoredValue,
 	...rest
 }) => {
 	const contentRef = useRef(null);
@@ -23,21 +25,8 @@ const Comment = ({
 	const [editable, setEditable] = useState(false);
 	const [contentValue, setContentValue] = useState(content);
 	const [scoreValue, setScoreValue] = useState(score);
-	const [storedValue, setStoredValue] = useLocalStorage('comments');
 	const [storedCurrentUserValue, setCurrentUserValue] =
 		useLocalStorage('currentUser');
-	const findPerson = (id, isReply) => {
-		let value;
-		if (isReply) {
-			value = storedValue
-				.find(comment => comment.id === parentID)
-				.replies.find(v => v.id === id);
-			return value;
-		} else {
-			value = storedValue.find(comment => comment.id === id);
-			return value;
-		}
-	};
 	const toggleReplyArea = () => {
 		setReplyAreaVisible(currentState => !currentState);
 	};
@@ -219,6 +208,9 @@ const Comment = ({
 				commentId={id}
 				isReply={isReply}
 				closeReply={() => setReplyAreaVisible(false)}
+				parentID={parentID}
+				storedValue={storedValue}
+				setStoredValue={setStoredValue}
 			/>
 		</>
 	);

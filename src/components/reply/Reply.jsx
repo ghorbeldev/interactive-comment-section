@@ -1,31 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react';
 import data from '../../config/data.json';
 import './reply.scss';
-import useLocalStorage from '../hooks/useLocalStorage';
-const Reply = ({ commentId, isOpen, comment, closeReply, isReply }) => {
+const Reply = ({
+	commentId,
+	isOpen,
+	comment,
+	closeReply,
+	isReply,
+	storedValue,
+	setStoredValue,
+	parentID,
+}) => {
 	const textareaRef = useRef(null);
 	useEffect(() => {
 		if (isOpen && !comment) textareaRef.current.focus();
 	}, [textareaRef, isOpen, comment]);
-
-	const [storedValue, setStoredValue] = useLocalStorage('comments');
-	let replyingTo;
-	if (isReply) {
-		storedValue.forEach(comment => {
-			if (comment.replies.length) {
-				let reply = comment.replies.find(reply => reply.id === commentId);
-				replyingTo = reply
-					? reply?.hasOwnProperty('user')
-						? reply.user.username
-						: ''
-					: replyingTo;
-			}
-		});
-	} else if (!isReply && !comment) {
-		replyingTo = storedValue.find(comment => comment.id === commentId).user
-			.username;
-	}
-	const initialTextareaValue = comment ? '' : `@${replyingTo} `;
+	const findPerson = (id, parentId, isReply) => {
+		let value;
+		if (isReply) {
+			value = storedValue
+				.find(comment => comment.id === parentId)
+				.replies.find(v => v.id === id);
+			return value;
+		} else {
+			value = storedValue.find(comment => comment.id === id);
+			return value;
+		}
+	};
+	const initialTextareaValue = comment
+		? ''
+		: `@${findPerson(commentId, parentID, isReply).user.username} `;
 	const [textareaValue, setTextareaValue] = useState(initialTextareaValue);
 	const handleTextareaChange = e => {
 		setTextareaValue(e.target.value);

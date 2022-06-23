@@ -29,6 +29,8 @@ function App() {
 								createdAt={comment.createdAt}
 								content={comment.content}
 								score={comment.score}
+								storedValue={storedValue}
+								setStoredValue={setValue}
 								isReply={false}
 								currentUser={
 									comment.user.username === data.currentUser.username
@@ -44,6 +46,8 @@ function App() {
 											createdAt={replie.createdAt}
 											content={replie.content}
 											score={replie.score}
+											storedValue={storedValue}
+											setStoredValue={setValue}
 											isReply={true}
 											parentID={comment.id}
 											currentUser={
@@ -55,7 +59,12 @@ function App() {
 							) : null}
 						</div>
 					))}
-				<Reply isOpen={true} comment={true} />
+				<Reply
+					storedValue={storedValue}
+					setStoredValue={setValue}
+					isOpen={true}
+					comment={true}
+				/>
 			</Container>
 		</div>
 	);
